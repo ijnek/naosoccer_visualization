@@ -19,13 +19,14 @@
 
 #define VISUALISATION_BALL_DIAMETER 0.1  // m
 
-class PointToMarker : public rclcpp::Node
+class BallToMarker : public rclcpp::Node
 {
 public:
-  PointToMarker()
-  : Node("PointToMarker")
+  BallToMarker()
+  : Node("BallToMarker")
   {
-    publisher_ = this->create_publisher<visualization_msgs::msg::Marker>("ball_marker", 10);
+    publisher_ = this->create_publisher<visualization_msgs::msg::Marker>(
+      "visualization/ball", 10);
     subscriber_ = this->create_subscription<geometry_msgs::msg::PointStamped>(
       "vision/ball", 1,
       [this](geometry_msgs::msg::PointStamped::SharedPtr point) {
@@ -67,7 +68,7 @@ int
 main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<PointToMarker>());
+  rclcpp::spin(std::make_shared<BallToMarker>());
   rclcpp::shutdown();
   return 0;
 }

@@ -43,4 +43,9 @@ def generate_launch_description():
             executable='ball_to_marker',
             namespace=LaunchConfiguration('namespace')
         ),
+        Node(
+            package='naosoccer_visualization',
+            executable='goalpost_array_to_marker_array',
+            namespace=LaunchConfiguration('namespace')
+        ),
     ])

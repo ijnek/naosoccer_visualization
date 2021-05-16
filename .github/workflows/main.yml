@@ -30,3 +30,4 @@ jobs:
         with:
           package-name: naosoccer_visualization
           target-ros2-distro: foxy
+          vcs-repo-file-url: dependencies.repos

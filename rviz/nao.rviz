@@ -9,7 +9,7 @@ Panels:
         - /TF1
         - /RobotModel1
         - /RobotModel1/Description Topic1
-        - /Marker1
+        - /MarkerArray1
       Splitter Ratio: 0.5
     Tree Height: 502
   - Class: rviz_common/Selection
@@ -51,7 +51,7 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
-      Marker Scale: 0.2
+      Marker Scale: 0.20000000298023224
       Name: TF
       Show Arrows: true
       Show Axes: true
@@ -450,13 +450,25 @@ Visualization Manager:
       Enabled: true
       Name: Ball
       Namespaces:
-        my_namespace: true
+        {}
       Topic:
         Depth: 5
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
-        Value: ball_marker
+        Value: visualization/ball
+      Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: Goalposts
+      Namespaces:
+        "": true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: visualization/goalposts
       Value: true
   Enabled: true
   Global Options:
