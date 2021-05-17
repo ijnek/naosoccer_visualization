@@ -19,7 +19,7 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(visualization_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
-find_package(soccer_interfaces REQUIRED)
+find_package(soccer_vision_msgs REQUIRED)
 
 # Build ball_to_marker
 add_executable(ball_to_marker src/ball_to_marker.cpp)
@@ -33,21 +33,21 @@ add_executable(goalpost_array_to_marker_array src/goalpost_array_to_marker_array
 ament_target_dependencies(goalpost_array_to_marker_array
   rclcpp
   visualization_msgs
-  soccer_interfaces)
+  soccer_vision_msgs)
 
 # Build field_line_array_to_marker_array
 add_executable(field_line_array_to_marker_array src/field_line_array_to_marker_array.cpp)
 ament_target_dependencies(field_line_array_to_marker_array
   rclcpp
   visualization_msgs
-  soccer_interfaces)
+  soccer_vision_msgs)
 
 # Build robot_array_to_marker_array
 add_executable(robot_array_to_marker_array src/robot_array_to_marker_array.cpp)
 ament_target_dependencies(robot_array_to_marker_array
   rclcpp
   visualization_msgs
-  soccer_interfaces)
+  soccer_vision_msgs)
 
 # Install
 install(TARGETS

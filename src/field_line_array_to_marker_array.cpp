@@ -14,7 +14,7 @@
 
 #include <memory>
 #include "rclcpp/rclcpp.hpp"
-#include "soccer_interfaces/msg/field_line_array.hpp"
+#include "soccer_vision_msgs/msg/field_line_array.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
 
 class FieldLineArrayToMarkerArray : public rclcpp::Node
@@ -25,9 +25,9 @@ public:
   {
     publisher_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
       "visualization/field_lines", 10);
-    subscriber_ = this->create_subscription<soccer_interfaces::msg::FieldLineArray>(
+    subscriber_ = this->create_subscription<soccer_vision_msgs::msg::FieldLineArray>(
       "vision/field_lines", 1,
-      [this](soccer_interfaces::msg::FieldLineArray::SharedPtr fieldLineArray) {
+      [this](soccer_vision_msgs::msg::FieldLineArray::SharedPtr fieldLineArray) {
         visualization_msgs::msg::MarkerArray markerArray;
         markerArray.markers.push_back(createDeleteAllActionMarker());
         for (unsigned i = 0; i < fieldLineArray->lines.size(); ++i) {
@@ -38,7 +38,7 @@ public:
   }
 
 private:
-  visualization_msgs::msg::Marker convert(int markerId, soccer_interfaces::msg::FieldLine & line)
+  visualization_msgs::msg::Marker convert(int markerId, soccer_vision_msgs::msg::FieldLine & line)
   {
     visualization_msgs::msg::Marker marker;
     marker.header = line.header;
@@ -70,7 +70,7 @@ private:
   }
 
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr publisher_;
-  rclcpp::Subscription<soccer_interfaces::msg::FieldLineArray>::SharedPtr subscriber_;
+  rclcpp::Subscription<soccer_vision_msgs::msg::FieldLineArray>::SharedPtr subscriber_;
 };
 
 int
