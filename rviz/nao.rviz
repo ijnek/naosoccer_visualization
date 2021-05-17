@@ -5,8 +5,6 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /RobotModel1/Description Topic1
-        - /Ball1/Status1
-        - /FieldLines1/Status1
         - /FieldLines1/Topic1
       Splitter Ratio: 0.5
     Tree Height: 502
@@ -480,6 +478,18 @@ Visualization Manager:
         Reliability Policy: Reliable
         Value: visualization/field_lines
       Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: Robots
+      Namespaces:
+        "": true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: visualization/robots
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -523,25 +533,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 2.8363895416259766
+      Distance: 7.065729141235352
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.33842092752456665
-        Y: 0.477632075548172
-        Z: -0.2568201720714569
+        X: 1.2481714487075806
+        Y: 0.4555908143520355
+        Z: -0.3411201536655426
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.4847962260246277
+      Pitch: 0.7797957062721252
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.703559398651123
+      Yaw: 3.9135615825653076
     Saved: ~
 Window Geometry:
   Displays:

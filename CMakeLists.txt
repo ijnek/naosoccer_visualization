@@ -42,11 +42,19 @@ ament_target_dependencies(field_line_array_to_marker_array
   visualization_msgs
   naosoccer_interfaces)
 
+# Build robot_array_to_marker_array
+add_executable(robot_array_to_marker_array src/robot_array_to_marker_array.cpp)
+ament_target_dependencies(robot_array_to_marker_array
+  rclcpp
+  visualization_msgs
+  naosoccer_interfaces)
+
 # Install
 install(TARGETS
   ball_to_marker
   goalpost_array_to_marker_array
   field_line_array_to_marker_array
+  robot_array_to_marker_array
   DESTINATION lib/${PROJECT_NAME})
 
 foreach(dir launch rviz meshes)
