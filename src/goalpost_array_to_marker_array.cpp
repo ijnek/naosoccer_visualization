@@ -62,7 +62,13 @@ private:
     marker.color.r = 1.0;
     marker.color.g = 1.0;
     marker.color.b = 1.0;
-    marker.mesh_resource = "package://naosoccer_visualization/meshes/goalpost_observed_top.dae";
+
+    if (post.observed_top) {
+      marker.mesh_resource = "package://naosoccer_visualization/meshes/goalpost_observed_top.dae";
+    } else {
+      marker.mesh_resource = "package://naosoccer_visualization/meshes/goalpost_observed_bot.dae";
+    }
+
     return marker;
   }
 
