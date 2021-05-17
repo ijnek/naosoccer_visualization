@@ -14,7 +14,7 @@
 
 #include <memory>
 #include "rclcpp/rclcpp.hpp"
-#include "naosoccer_interfaces/msg/goalpost_array.hpp"
+#include "soccer_interfaces/msg/goalpost_array.hpp"
 #include "visualization_msgs/msg/marker_array.hpp"
 
 class GoalpostArrayToMarkerArray : public rclcpp::Node
@@ -25,9 +25,9 @@ public:
   {
     publisher_ = this->create_publisher<visualization_msgs::msg::MarkerArray>(
       "visualization/goalposts", 10);
-    subscriber_ = this->create_subscription<naosoccer_interfaces::msg::GoalpostArray>(
+    subscriber_ = this->create_subscription<soccer_interfaces::msg::GoalpostArray>(
       "vision/goalposts", 1,
-      [this](naosoccer_interfaces::msg::GoalpostArray::SharedPtr goalpostArray) {
+      [this](soccer_interfaces::msg::GoalpostArray::SharedPtr goalpostArray) {
         visualization_msgs::msg::MarkerArray markerArray;
         markerArray.markers.push_back(createDeleteAllActionMarker());
         for (unsigned i = 0; i < goalpostArray->posts.size(); ++i) {
@@ -38,7 +38,7 @@ public:
   }
 
 private:
-  visualization_msgs::msg::Marker convert(int markerId, naosoccer_interfaces::msg::Goalpost & post)
+  visualization_msgs::msg::Marker convert(int markerId, soccer_interfaces::msg::Goalpost & post)
   {
     visualization_msgs::msg::Marker marker;
     marker.header = post.header;
@@ -74,7 +74,7 @@ private:
   }
 
   rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr publisher_;
-  rclcpp::Subscription<naosoccer_interfaces::msg::GoalpostArray>::SharedPtr subscriber_;
+  rclcpp::Subscription<soccer_interfaces::msg::GoalpostArray>::SharedPtr subscriber_;
 };
 
 int
