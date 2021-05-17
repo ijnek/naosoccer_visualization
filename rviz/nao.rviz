@@ -4,12 +4,10 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /Global Options1
-        - /Status1
-        - /TF1
-        - /RobotModel1
         - /RobotModel1/Description Topic1
-        - /MarkerArray1
+        - /Ball1/Status1
+        - /FieldLines1/Status1
+        - /FieldLines1/Topic1
       Splitter Ratio: 0.5
     Tree Height: 502
   - Class: rviz_common/Selection
@@ -450,7 +448,7 @@ Visualization Manager:
       Enabled: true
       Name: Ball
       Namespaces:
-        {}
+        "": true
       Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -469,6 +467,18 @@ Visualization Manager:
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: visualization/goalposts
+      Value: true
+    - Class: rviz_default_plugins/MarkerArray
+      Enabled: true
+      Name: FieldLines
+      Namespaces:
+        "": true
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: visualization/field_lines
       Value: true
   Enabled: true
   Global Options:
