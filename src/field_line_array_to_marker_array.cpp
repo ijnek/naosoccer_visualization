@@ -41,7 +41,7 @@ private:
   visualization_msgs::msg::Marker convert(int markerId, soccer_vision_msgs::msg::FieldLine & line)
   {
     visualization_msgs::msg::Marker marker;
-    marker.header = line.header;
+    marker.header.frame_id = line.header.frame_id;
     marker.ns = "";
     marker.id = markerId;
     marker.type = visualization_msgs::msg::Marker::LINE_STRIP;

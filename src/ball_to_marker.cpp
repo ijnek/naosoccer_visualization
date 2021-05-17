@@ -38,7 +38,7 @@ private:
   visualization_msgs::msg::Marker convert(geometry_msgs::msg::PointStamped & point)
   {
     visualization_msgs::msg::Marker marker;
-    marker.header = point.header;
+    marker.header.frame_id = point.header.frame_id;
     marker.ns = "";
     marker.id = 0;
     marker.type = visualization_msgs::msg::Marker::SPHERE;

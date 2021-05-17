@@ -41,7 +41,7 @@ private:
   visualization_msgs::msg::Marker convert(int markerId, soccer_vision_msgs::msg::Goalpost & post)
   {
     visualization_msgs::msg::Marker marker;
-    marker.header = post.header;
+    marker.header.frame_id = post.header.frame_id;
     marker.ns = "";
     marker.id = markerId;
     marker.type = visualization_msgs::msg::Marker::MESH_RESOURCE;
