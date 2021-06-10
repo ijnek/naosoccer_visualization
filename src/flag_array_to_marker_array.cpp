@@ -63,7 +63,7 @@ private:
     marker.color.g = 1.0;
     marker.color.b = 1.0;
 
-    // TODO: Make mesh for flag
+    // TODO(ijnek): Make mesh for flag
     marker.mesh_resource = "package://naosoccer_visualization/meshes/goalpost_observed_bot.dae";
 
     return marker;
