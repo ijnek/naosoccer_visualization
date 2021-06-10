@@ -49,12 +49,20 @@ ament_target_dependencies(robot_array_to_marker_array
   visualization_msgs
   soccer_vision_msgs)
 
+# Build flag_array_to_marker_array
+add_executable(flag_array_to_marker_array src/flag_array_to_marker_array.cpp)
+ament_target_dependencies(flag_array_to_marker_array
+  rclcpp
+  visualization_msgs
+  soccer_vision_msgs)
+
 # Install
 install(TARGETS
   ball_to_marker
   goalpost_array_to_marker_array
   field_line_array_to_marker_array
   robot_array_to_marker_array
+  flag_array_to_marker_array
   DESTINATION lib/${PROJECT_NAME})
 
 foreach(dir launch rviz meshes)

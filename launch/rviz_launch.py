@@ -59,4 +59,9 @@ def generate_launch_description():
             executable='robot_array_to_marker_array',
             namespace=LaunchConfiguration('namespace')
         ),
+        Node(
+            package='naosoccer_visualization',
+            executable='flag_array_to_marker_array',
+            namespace=LaunchConfiguration('namespace')
+        ),        
     ])
