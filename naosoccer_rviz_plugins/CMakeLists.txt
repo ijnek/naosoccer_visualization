@@ -11,15 +11,19 @@ include_directories(
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(Qt5Core REQUIRED)
+find_package(Qt5 COMPONENTS Core REQUIRED)
 find_package(rviz_common REQUIRED)
 find_package(class_loader REQUIRED)
+
+# Required when using Qt's moc system, refer to Qt with CMake
+set(CMAKE_AUTOMOC ON)
 
 # Build eye_leds_panel
 pluginlib_export_plugin_description_file(rviz_common plugin_description.xml)
 
-add_library(eye_leds_panel
-  src/eye_leds_panel.cpp)
+add_library(eye_leds_panel SHARED
+  src/eye_leds_panel.cpp
+  include/naosoccer_rviz_plugins/eye_leds_panel.hpp)
 
 ament_target_dependencies(eye_leds_panel
   rclcpp
