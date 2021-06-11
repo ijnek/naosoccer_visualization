@@ -8,7 +8,7 @@ Panels:
         - /FieldLines1/Topic1
         - /Flags1
       Splitter Ratio: 0.5
-    Tree Height: 500
+    Tree Height: 502
   - Class: rviz_common/Selection
     Name: Selection
   - Class: rviz_common/Tool Properties
@@ -493,17 +493,17 @@ Visualization Manager:
         Value: visualization/robots
       Value: true
     - Class: rviz_default_plugins/MarkerArray
-      Enabled: true
+      Enabled: false
       Name: Flags
       Namespaces:
-        "": true
+        {}
       Topic:
         Depth: 5
         Durability Policy: Volatile
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: visualization/flags
-      Value: true
+      Value: false
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -519,6 +519,9 @@ Visualization Manager:
     - Class: rviz_default_plugins/Measure
       Line color: 128; 128; 0
     - Class: rviz_default_plugins/SetInitialPose
+      Covariance x: 0.25
+      Covariance y: 0.25
+      Covariance yaw: 0.06853891909122467
       Topic:
         Depth: 5
         Durability Policy: Volatile
@@ -547,25 +550,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 7.065729141235352
+      Distance: 4.69389009475708
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 1.2481714487075806
-        Y: 0.4555908143520355
-        Z: -0.3411201536655426
+        X: 1.2674850225448608
+        Y: 0.10618460178375244
+        Z: -0.29412588477134705
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7797957062721252
+      Pitch: 0.34479594230651855
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.9135615825653076
+      Yaw: 3.158562183380127
     Saved: ~
 Window Geometry:
   Displays:
@@ -581,5 +584,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1360
-  X: 2560
-  Y: 0
+  X: 560
+  Y: 27
