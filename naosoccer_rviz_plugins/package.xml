@@ -13,6 +13,8 @@
   <depend>rclcpp</depend>
   <depend>qtbase5-dev</depend>
   <depend>class_loader</depend>
+  <depend>std_msgs</depend>
+  <depend>nao_interfaces</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

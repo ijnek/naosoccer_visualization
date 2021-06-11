@@ -1,7 +1,7 @@
 <library path="eye_leds_panel">
-  <class name="Eye LEDs Panel" type="EyeLEDsPanel" base_class_type="rviz_common::Panel">
+  <class name="Eye LEDs Panel" type="EyeLedsPanel" base_class_type="rviz_common::Panel">
     <description>
-      EyeLEDs Panel plugin.
+      EyeLeds Panel plugin.
     </description>
   </class>
 </library>

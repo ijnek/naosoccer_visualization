@@ -14,6 +14,8 @@ find_package(rclcpp REQUIRED)
 find_package(Qt5 COMPONENTS Core REQUIRED)
 find_package(rviz_common REQUIRED)
 find_package(class_loader REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(nao_interfaces REQUIRED)
 
 # Required when using Qt's moc system, refer to Qt with CMake
 set(CMAKE_AUTOMOC ON)
@@ -29,7 +31,9 @@ ament_target_dependencies(eye_leds_panel
   rclcpp
   Qt5Core
   rviz_common
-  class_loader)
+  class_loader
+  std_msgs
+  nao_interfaces)
 
 install(DIRECTORY include/ DESTINATION include)
 

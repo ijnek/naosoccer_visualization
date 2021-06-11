@@ -17,18 +17,26 @@
 
 #include <rclcpp/rclcpp.hpp>
 #include <rviz_common/panel.hpp>
+#include <QPainter>
+#include "std_msgs/msg/color_rgba.hpp"
+#include "nao_interfaces/msg/eye_leds.hpp"
 
-class EyeLEDsPanel : public rviz_common::Panel
+class EyeLedsPanel : public rviz_common::Panel
 {
   Q_OBJECT
 
 public:
-  explicit EyeLEDsPanel(QWidget * parent = nullptr);
-  ~EyeLEDsPanel() override;
+  explicit EyeLedsPanel(QWidget * parent = nullptr);
+  ~EyeLedsPanel() override;
 
   void onInitialize() override;
   void onEnable();
   void onDisable();
+
+  void paintEvent(QPaintEvent *) override;
+
+  void drawEyes(QPainter &painter, const nao_interfaces::msg::EyeLeds &leds);
+  void drawEyeLed(QPainter &painter, const QRect &rect, int led_qt_angle, const std_msgs::msg::ColorRGBA &color);
 };
 
 
