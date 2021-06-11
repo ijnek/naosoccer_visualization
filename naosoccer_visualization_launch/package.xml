@@ -1,23 +1,20 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>naosoccer_visualization</name>
+  <name>naosoccer_visualization_launch</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <description>Launch rviz for naosoccer domain</description>
   <maintainer email="kenjibrameld@gmail.com">ijnek</maintainer>
-  <license>Apache License 2.0</license>
+  <license>TODO: License declaration</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <depend>rclcpp</depend>
-  <depend>visualization_msgs</depend>
-  <depend>geometry_msgs</depend>
-  <depend>soccer_vision_msgs</depend>
-
-  <exec_depend>rviz2</exec_depend>
-
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
+
+  <depend>soccer_marker_generation</depend>
+
+  <exec_depend>rviz2</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>

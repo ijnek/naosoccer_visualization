@@ -1,15 +1,5 @@
-cmake_minimum_required(VERSION 3.5)
-project(naosoccer_visualization)
-
-# Default to C99
-if(NOT CMAKE_C_STANDARD)
-  set(CMAKE_C_STANDARD 99)
-endif()
-
-# Default to C++14
-if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
-endif()
+cmake_minimum_required(VERSION 3.8)
+project(soccer_marker_generation)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -65,10 +55,8 @@ install(TARGETS
   flag_array_to_marker_array
   DESTINATION lib/${PROJECT_NAME})
 
-foreach(dir launch rviz meshes)
-  install(DIRECTORY ${dir}/
-    DESTINATION share/${PROJECT_NAME}/${dir}/)
-endforeach()
+install(DIRECTORY meshes/
+  DESTINATION share/${PROJECT_NAME}/meshes/)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

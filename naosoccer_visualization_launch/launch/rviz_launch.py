@@ -33,34 +33,34 @@ def generate_launch_description():
             arguments=[
                 '-d',
                 os.path.join(
-                    get_package_share_directory('naosoccer_visualization'),
+                    get_package_share_directory('naosoccer_visualization_launch'),
                     'rviz', 'nao.rviz')
             ],
             namespace=LaunchConfiguration('namespace'),
             on_exit=Shutdown()
         ),
         Node(
-            package='naosoccer_visualization',
+            package='soccer_marker_generation',
             executable='ball_to_marker',
             namespace=LaunchConfiguration('namespace')
         ),
         Node(
-            package='naosoccer_visualization',
+            package='soccer_marker_generation',
             executable='goalpost_array_to_marker_array',
             namespace=LaunchConfiguration('namespace')
         ),
         Node(
-            package='naosoccer_visualization',
+            package='soccer_marker_generation',
             executable='field_line_array_to_marker_array',
             namespace=LaunchConfiguration('namespace')
         ),
         Node(
-            package='naosoccer_visualization',
+            package='soccer_marker_generation',
             executable='robot_array_to_marker_array',
             namespace=LaunchConfiguration('namespace')
         ),
         Node(
-            package='naosoccer_visualization',
+            package='soccer_marker_generation',
             executable='flag_array_to_marker_array',
             namespace=LaunchConfiguration('namespace')
         ),
