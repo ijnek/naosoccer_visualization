@@ -33,10 +33,12 @@ public:
   void onEnable();
   void onDisable();
 
-  void paintEvent(QPaintEvent *) override;
+  void paintEvent(QPaintEvent * e) override;
 
-  void drawEyes(QPainter &painter, const nao_interfaces::msg::EyeLeds &leds);
-  void drawEyeLed(QPainter &painter, const QRect &rect, int led_qt_angle, const std_msgs::msg::ColorRGBA &color);
+  void drawEyes(QPainter & painter, const nao_interfaces::msg::EyeLeds & leds);
+  void drawEyeLed(
+    QPainter & painter, const QRect & rect, int led_qt_angle,
+    const std_msgs::msg::ColorRGBA & color);
 };
 
 

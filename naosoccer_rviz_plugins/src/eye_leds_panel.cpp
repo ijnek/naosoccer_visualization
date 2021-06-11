@@ -34,8 +34,12 @@ void EyeLedsPanel::onInitialize()
   parentWidget()->setVisible(true);
 }
 
-void EyeLedsPanel::paintEvent(QPaintEvent *)
+void EyeLedsPanel::paintEvent(QPaintEvent * e)
 {
+  // We must read in the parameter, to prevent cpplint complaining.
+  // https://github.com/ros/roslint/issues/54#issue-178869674
+  (void) e;
+
   QPainter painter(this);
 
   nao_interfaces::msg::EyeLeds leds;
