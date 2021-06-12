@@ -48,33 +48,62 @@ void EyeLedsPanel::paintEvent(QPaintEvent * e)
 
 void EyeLedsPanel::drawEyes(QPainter & painter, const nao_interfaces::msg::EyeLeds & leds)
 {
-  QRect reye_rect(20, 20, 50, 50);
-  // Angles in QT start at 3 o'clock, and goes anti-clockwise.
-  drawEyeLed(painter, reye_rect, DEG_TO_QT_ANGLE(0), leds.leds.at(leds.R2));
-  drawEyeLed(painter, reye_rect, DEG_TO_QT_ANGLE(45), leds.leds.at(leds.R1));
-  drawEyeLed(painter, reye_rect, DEG_TO_QT_ANGLE(90), leds.leds.at(leds.R0));
-  drawEyeLed(painter, reye_rect, DEG_TO_QT_ANGLE(135), leds.leds.at(leds.R7));
-  drawEyeLed(painter, reye_rect, DEG_TO_QT_ANGLE(180), leds.leds.at(leds.R6));
-  drawEyeLed(painter, reye_rect, DEG_TO_QT_ANGLE(225), leds.leds.at(leds.R5));
-  drawEyeLed(painter, reye_rect, DEG_TO_QT_ANGLE(270), leds.leds.at(leds.R4));
-  drawEyeLed(painter, reye_rect, DEG_TO_QT_ANGLE(315), leds.leds.at(leds.R3));
+  QPoint eyesCentre(width() / 2, height() / 2);
 
-  QRect leye_rect(130, 20, 50, 50);
-  drawEyeLed(painter, leye_rect, DEG_TO_QT_ANGLE(0), leds.leds.at(leds.L6));
-  drawEyeLed(painter, leye_rect, DEG_TO_QT_ANGLE(45), leds.leds.at(leds.L7));
-  drawEyeLed(painter, leye_rect, DEG_TO_QT_ANGLE(90), leds.leds.at(leds.L0));
-  drawEyeLed(painter, leye_rect, DEG_TO_QT_ANGLE(135), leds.leds.at(leds.L1));
-  drawEyeLed(painter, leye_rect, DEG_TO_QT_ANGLE(180), leds.leds.at(leds.L2));
-  drawEyeLed(painter, leye_rect, DEG_TO_QT_ANGLE(225), leds.leds.at(leds.L3));
-  drawEyeLed(painter, leye_rect, DEG_TO_QT_ANGLE(270), leds.leds.at(leds.L4));
-  drawEyeLed(painter, leye_rect, DEG_TO_QT_ANGLE(315), leds.leds.at(leds.L5));
+  painter.save();
+  painter.translate(eyesCentre);
+
+  painter.save();
+  float ratio = (float) height() / width();
+  if (ratio > 0.5) {
+    // Width is limiting factor
+    painter.scale(width() / 200.0, width() / 200.0);
+  } else {
+    // Height is limiting factor
+    painter.scale(height() / 100.0, height() / 100.0);
+  }
+
+  QPoint reyeCentre(-70, 0);
+  QPoint leyeCentre(70, 0);
+
+  QRect eye_rect(QPoint(-30, -30), QPoint(30, 30));
+
+  painter.save();
+  painter.translate(reyeCentre);
+  // Angles in QT start at 3 o'clock, and goes anti-clockwise.
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(0), leds.leds.at(leds.R2));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(45), leds.leds.at(leds.R1));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(90), leds.leds.at(leds.R0));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(135), leds.leds.at(leds.R7));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(180), leds.leds.at(leds.R6));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(225), leds.leds.at(leds.R5));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(270), leds.leds.at(leds.R4));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(315), leds.leds.at(leds.R3));
+  painter.restore();
+
+  painter.save();
+  painter.translate(leyeCentre);
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(0), leds.leds.at(leds.L6));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(45), leds.leds.at(leds.L7));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(90), leds.leds.at(leds.L0));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(135), leds.leds.at(leds.L1));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(180), leds.leds.at(leds.L2));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(225), leds.leds.at(leds.L3));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(270), leds.leds.at(leds.L4));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(315), leds.leds.at(leds.L5));
+  painter.restore();
+
+  painter.restore();
+
+  painter.restore();
 }
 
 void EyeLedsPanel::drawEyeLed(
   QPainter & painter, const QRect & rect, int led_qt_angle,
   const std_msgs::msg::ColorRGBA & color)
 {
-  QColor qcolor(color.r * 255, color.g * 255, color.b * 255);
+  int alpha = (color.r + color.g + color.b) * 255 / 3;
+  QColor qcolor(color.r * 255, color.g * 255, color.b * 255, alpha);
   QPen pen(QBrush(qcolor), 16, Qt::SolidLine, Qt::FlatCap);
   painter.setPen(pen);
   painter.drawArc(rect, led_qt_angle - HALF_SPAN_ANGLE_PER_LED, SPAN_ANGLE_PER_LED);
