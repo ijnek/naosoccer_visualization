@@ -66,10 +66,6 @@ void EyeLedsPanel::paintEvent(QPaintEvent * e)
   // https://github.com/ros/roslint/issues/54#issue-178869674
   (void) e;
 
-  if (!leds) {  // If we haven't received led information yet
-    return;
-  }
-
   QPainter painter(this);
 
   painter.save();
@@ -88,7 +84,10 @@ void EyeLedsPanel::paintEvent(QPaintEvent * e)
   painter.scale(scale, scale);
 
   painter.drawImage(QRectF(-imageW / 2, -imageH / 2, imageW, imageH), image);
-  drawEyes(painter, *leds);
+
+  if (leds) {  // If we haven't received led information yet
+    drawEyes(painter, *leds);
+  }
 
   painter.restore();
 }
