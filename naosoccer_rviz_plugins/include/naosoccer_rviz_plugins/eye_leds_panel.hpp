@@ -43,7 +43,7 @@ private:
 
   rclcpp::Node::SharedPtr node_;
   rclcpp::Subscription<nao_interfaces::msg::EyeLeds>::SharedPtr sub_;
-  
+
   nao_interfaces::msg::EyeLeds::SharedPtr leds;
 };
 

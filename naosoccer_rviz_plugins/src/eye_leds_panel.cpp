@@ -33,7 +33,7 @@ EyeLedsPanel::~EyeLedsPanel() = default;
 void EyeLedsPanel::onInitialize()
 {
   parentWidget()->setVisible(true);
-  
+
   node_ = getDisplayContext()->getRosNodeAbstraction().lock()->get_raw_node();
   sub_ = node_->create_subscription<nao_interfaces::msg::EyeLeds>(
     "effectors/eye_leds", 1,
@@ -49,8 +49,7 @@ void EyeLedsPanel::paintEvent(QPaintEvent * e)
   // https://github.com/ros/roslint/issues/54#issue-178869674
   (void) e;
 
-  if (!leds)  // If we haven't received led information yet
-  {
+  if (!leds) {  // If we haven't received led information yet
     return;
   }
 
@@ -67,7 +66,7 @@ void EyeLedsPanel::drawEyes(QPainter & painter, const nao_interfaces::msg::EyeLe
   painter.translate(eyesCentre);
 
   painter.save();
-  float ratio = (float) height() / width();
+  float ratio = static_cast<float>(height()) / width();
   if (ratio > 0.5) {
     // Width is limiting factor
     painter.scale(width() / 200.0, width() / 200.0);
