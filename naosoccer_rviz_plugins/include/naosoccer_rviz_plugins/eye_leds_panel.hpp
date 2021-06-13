@@ -32,8 +32,10 @@ public:
   void onInitialize() override;
   void onEnable();
   void onDisable();
+  QSize sizeHint() const override;
 
 private:
+  void loadFaceImage();
   void paintEvent(QPaintEvent * e) override;
 
   void drawEyes(QPainter & painter, const nao_interfaces::msg::EyeLeds & leds);
@@ -45,6 +47,9 @@ private:
   rclcpp::Subscription<nao_interfaces::msg::EyeLeds>::SharedPtr sub_;
 
   nao_interfaces::msg::EyeLeds::SharedPtr leds;
+  QImage image;
+  float imageW;
+  float imageH;
 };
 
 

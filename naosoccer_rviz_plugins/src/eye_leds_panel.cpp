@@ -15,6 +15,8 @@
 #include "naosoccer_rviz_plugins/eye_leds_panel.hpp"
 #include <class_loader/class_loader.hpp>
 #include <rviz_common/display_context.hpp>
+#include <ament_index_cpp/get_package_share_directory.hpp>
+#include <filesystem>
 
 // One revolution is 360 * 16 increments
 // (https://doc.qt.io/qt-5/qpainter.html#drawArc)
@@ -26,9 +28,24 @@
 EyeLedsPanel::EyeLedsPanel(QWidget * parent)
 : Panel(parent)
 {
+  loadFaceImage();
 }
 
 EyeLedsPanel::~EyeLedsPanel() = default;
+
+void EyeLedsPanel::loadFaceImage()
+{
+  std::string package_share_directory = ament_index_cpp::get_package_share_directory(
+    "naosoccer_rviz_plugins");
+  image = QImage(QString::fromStdString(package_share_directory + "/images/face.png"));
+  imageW = image.width();
+  imageH = image.height();
+}
+
+QSize EyeLedsPanel::sizeHint() const
+{
+  return QSize(imageW, imageH);
+}
 
 void EyeLedsPanel::onInitialize()
 {
@@ -55,30 +72,33 @@ void EyeLedsPanel::paintEvent(QPaintEvent * e)
 
   QPainter painter(this);
 
+  painter.save();
+  float widgH = static_cast<float>(height());
+  float widgW = static_cast<float>(width());
+  painter.translate(widgW / 2, widgH / 2);
+  float ratio = widgH / widgW;
+  float scale = 1.0;
+  if (ratio > imageH / imageW) {
+    // Width is limiting factor
+    scale = widgW / imageW;
+  } else {
+    // Height is limiting factor
+    scale = widgH / imageH;
+  }
+  painter.scale(scale, scale);
+
+  painter.drawImage(QRectF(-imageW / 2, -imageH / 2, imageW, imageH), image);
   drawEyes(painter, *leds);
+
+  painter.restore();
 }
 
 void EyeLedsPanel::drawEyes(QPainter & painter, const nao_interfaces::msg::EyeLeds & leds)
 {
-  QPoint eyesCentre(width() / 2, height() / 2);
+  QPoint reyeCentre(-33, 5);
+  QPoint leyeCentre(33, 5);
 
-  painter.save();
-  painter.translate(eyesCentre);
-
-  painter.save();
-  float ratio = static_cast<float>(height()) / width();
-  if (ratio > 0.5) {
-    // Width is limiting factor
-    painter.scale(width() / 200.0, width() / 200.0);
-  } else {
-    // Height is limiting factor
-    painter.scale(height() / 100.0, height() / 100.0);
-  }
-
-  QPoint reyeCentre(-70, 0);
-  QPoint leyeCentre(70, 0);
-
-  QRect eye_rect(QPoint(-30, -30), QPoint(30, 30));
+  QRect eye_rect(QPoint(-9, -9), QPoint(9, 9));
 
   painter.save();
   painter.translate(reyeCentre);
@@ -104,10 +124,6 @@ void EyeLedsPanel::drawEyes(QPainter & painter, const nao_interfaces::msg::EyeLe
   drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(270), leds.leds.at(leds.L4));
   drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(315), leds.leds.at(leds.L5));
   painter.restore();
-
-  painter.restore();
-
-  painter.restore();
 }
 
 void EyeLedsPanel::drawEyeLed(
@@ -116,7 +132,7 @@ void EyeLedsPanel::drawEyeLed(
 {
   int alpha = (color.r + color.g + color.b) * 255 / 3;
   QColor qcolor(color.r * 255, color.g * 255, color.b * 255, alpha);
-  QPen pen(QBrush(qcolor), 16, Qt::SolidLine, Qt::FlatCap);
+  QPen pen(QBrush(qcolor), 8, Qt::SolidLine, Qt::FlatCap);
   painter.setPen(pen);
   painter.drawArc(rect, led_qt_angle - HALF_SPAN_ANGLE_PER_LED, SPAN_ANGLE_PER_LED);
 }

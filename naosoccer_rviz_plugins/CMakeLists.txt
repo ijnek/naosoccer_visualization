@@ -44,6 +44,9 @@ install(TARGETS eye_leds_panel
 
 ament_export_libraries(eye_leds_panel)
 
+install(DIRECTORY images/
+  DESTINATION share/${PROJECT_NAME}/images/)
+
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
   ament_lint_auto_find_test_dependencies()
