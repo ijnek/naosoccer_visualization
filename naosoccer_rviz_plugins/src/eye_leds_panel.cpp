@@ -14,6 +14,7 @@
 
 #include "naosoccer_rviz_plugins/eye_leds_panel.hpp"
 #include <class_loader/class_loader.hpp>
+#include <rviz_common/display_context.hpp>
 
 // One revolution is 360 * 16 increments
 // (https://doc.qt.io/qt-5/qpainter.html#drawArc)
@@ -32,6 +33,14 @@ EyeLedsPanel::~EyeLedsPanel() = default;
 void EyeLedsPanel::onInitialize()
 {
   parentWidget()->setVisible(true);
+  
+  node_ = getDisplayContext()->getRosNodeAbstraction().lock()->get_raw_node();
+  sub_ = node_->create_subscription<nao_interfaces::msg::EyeLeds>(
+    "effectors/eye_leds", 1,
+    [this](nao_interfaces::msg::EyeLeds::SharedPtr eye_leds) {
+      this->leds = eye_leds;
+      this->update();  // QWidget method which redraws widget
+    });
 }
 
 void EyeLedsPanel::paintEvent(QPaintEvent * e)
@@ -40,10 +49,14 @@ void EyeLedsPanel::paintEvent(QPaintEvent * e)
   // https://github.com/ros/roslint/issues/54#issue-178869674
   (void) e;
 
+  if (!leds)  // If we haven't received led information yet
+  {
+    return;
+  }
+
   QPainter painter(this);
 
-  nao_interfaces::msg::EyeLeds leds;
-  drawEyes(painter, leds);
+  drawEyes(painter, *leds);
 }
 
 void EyeLedsPanel::drawEyes(QPainter & painter, const nao_interfaces::msg::EyeLeds & leds)
