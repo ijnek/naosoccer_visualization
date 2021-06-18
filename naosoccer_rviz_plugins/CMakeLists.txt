@@ -44,8 +44,10 @@ install(TARGETS eye_leds_panel
 
 ament_export_libraries(eye_leds_panel)
 
-install(DIRECTORY images/
-  DESTINATION share/${PROJECT_NAME}/images/)
+foreach(dir images icons)
+  install(DIRECTORY ${dir}/
+    DESTINATION share/${PROJECT_NAME}/${dir}/)
+endforeach()
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
