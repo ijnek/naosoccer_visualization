@@ -52,10 +52,17 @@ void EyeLedsPanel::onInitialize()
   parentWidget()->setVisible(true);
 
   node_ = getDisplayContext()->getRosNodeAbstraction().lock()->get_raw_node();
-  sub_ = node_->create_subscription<nao_interfaces::msg::EyeLeds>(
-    "effectors/eye_leds", 1,
-    [this](nao_interfaces::msg::EyeLeds::SharedPtr eye_leds) {
-      this->leds = eye_leds;
+  sub_left_ = node_->create_subscription<nao_command_msgs::msg::LeftEyeLeds>(
+    "effectors/left_eye_leds", 1,
+    [this](nao_command_msgs::msg::LeftEyeLeds::SharedPtr left_eye_leds) {
+      this->left_eye_leds = left_eye_leds;
+      this->update();  // QWidget method which redraws widget
+    });
+
+  sub_right_ = node_->create_subscription<nao_command_msgs::msg::RightEyeLeds>(
+    "effectors/right_eye_leds", 1,
+    [this](nao_command_msgs::msg::RightEyeLeds::SharedPtr right_eye_leds) {
+      this->right_eye_leds = right_eye_leds;
       this->update();  // QWidget method which redraws widget
     });
 }
@@ -85,43 +92,56 @@ void EyeLedsPanel::paintEvent(QPaintEvent * e)
 
   painter.drawImage(QRectF(-imageW / 2, -imageH / 2, imageW, imageH), image);
 
-  if (leds) {  // If we haven't received led information yet
-    drawEyes(painter, *leds);
+  if (left_eye_leds) {
+    drawLeftEye(painter, *left_eye_leds);
+  }
+
+  if (right_eye_leds) {
+    drawRightEye(painter, *right_eye_leds);
   }
 
   painter.restore();
 }
 
-void EyeLedsPanel::drawEyes(QPainter & painter, const nao_interfaces::msg::EyeLeds & leds)
+void EyeLedsPanel::drawLeftEye(
+  QPainter & painter,
+  const nao_command_msgs::msg::LeftEyeLeds & left_eye_leds)
+{
+  QPoint leyeCentre(33, 5);
+  QRect eye_rect(QPoint(-9, -9), QPoint(9, 9));
+
+  painter.save();
+  painter.translate(leyeCentre);
+  // Angles in QT start at 3 o'clock, and goes anti-clockwise.
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(0), left_eye_leds.colors.at(left_eye_leds.L6));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(45), left_eye_leds.colors.at(left_eye_leds.L7));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(90), left_eye_leds.colors.at(left_eye_leds.L0));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(135), left_eye_leds.colors.at(left_eye_leds.L1));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(180), left_eye_leds.colors.at(left_eye_leds.L2));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(225), left_eye_leds.colors.at(left_eye_leds.L3));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(270), left_eye_leds.colors.at(left_eye_leds.L4));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(315), left_eye_leds.colors.at(left_eye_leds.L5));
+  painter.restore();
+}
+
+void EyeLedsPanel::drawRightEye(
+  QPainter & painter,
+  const nao_command_msgs::msg::RightEyeLeds & right_eye_leds)
 {
   QPoint reyeCentre(-33, 5);
-  QPoint leyeCentre(33, 5);
-
   QRect eye_rect(QPoint(-9, -9), QPoint(9, 9));
 
   painter.save();
   painter.translate(reyeCentre);
   // Angles in QT start at 3 o'clock, and goes anti-clockwise.
-  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(0), leds.leds.at(leds.R2));
-  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(45), leds.leds.at(leds.R1));
-  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(90), leds.leds.at(leds.R0));
-  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(135), leds.leds.at(leds.R7));
-  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(180), leds.leds.at(leds.R6));
-  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(225), leds.leds.at(leds.R5));
-  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(270), leds.leds.at(leds.R4));
-  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(315), leds.leds.at(leds.R3));
-  painter.restore();
-
-  painter.save();
-  painter.translate(leyeCentre);
-  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(0), leds.leds.at(leds.L6));
-  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(45), leds.leds.at(leds.L7));
-  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(90), leds.leds.at(leds.L0));
-  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(135), leds.leds.at(leds.L1));
-  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(180), leds.leds.at(leds.L2));
-  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(225), leds.leds.at(leds.L3));
-  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(270), leds.leds.at(leds.L4));
-  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(315), leds.leds.at(leds.L5));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(0), right_eye_leds.colors.at(right_eye_leds.R2));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(45), right_eye_leds.colors.at(right_eye_leds.R1));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(90), right_eye_leds.colors.at(right_eye_leds.R0));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(135), right_eye_leds.colors.at(right_eye_leds.R7));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(180), right_eye_leds.colors.at(right_eye_leds.R6));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(225), right_eye_leds.colors.at(right_eye_leds.R5));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(270), right_eye_leds.colors.at(right_eye_leds.R4));
+  drawEyeLed(painter, eye_rect, DEG_TO_QT_ANGLE(315), right_eye_leds.colors.at(right_eye_leds.R3));
   painter.restore();
 }
 
