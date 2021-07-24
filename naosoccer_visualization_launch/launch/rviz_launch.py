@@ -59,9 +59,4 @@ def generate_launch_description():
             executable='robot_array_to_marker_array',
             namespace=LaunchConfiguration('namespace')
         ),
-        Node(
-            package='soccer_marker_generation',
-            executable='flag_array_to_marker_array',
-            namespace=LaunchConfiguration('namespace')
-        ),
     ])
