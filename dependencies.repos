@@ -6,8 +6,8 @@ repositories:
   nao_interfaces:
     type: git
     url: https://github.com/ijnek/nao_interfaces.git
-    version: main
+    version: rolling
   soccer_visualization:
     type: git
     url: https://github.com/ijnek/soccer_visualization.git
-    version: main
+    version: rolling
