@@ -16,8 +16,8 @@
 #define NAOSOCCER_RVIZ_PLUGINS__EYE_LEDS_PANEL_HPP_
 
 #include <QPainter>
-#include <rclcpp/rclcpp.hpp>
-#include <rviz_common/panel.hpp>
+#include "rclcpp/rclcpp.hpp"
+#include "rviz_common/panel.hpp"
 #include "std_msgs/msg/color_rgba.hpp"
 #include "nao_command_msgs/msg/right_eye_leds.hpp"
 #include "nao_command_msgs/msg/left_eye_leds.hpp"

@@ -14,9 +14,9 @@
 
 #include <string>
 #include "naosoccer_rviz_plugins/eye_leds_panel.hpp"
-#include <class_loader/class_loader.hpp>
-#include <rviz_common/display_context.hpp>
-#include <ament_index_cpp/get_package_share_directory.hpp>
+#include "class_loader/class_loader.hpp"
+#include "rviz_common/display_context.hpp"
+#include "ament_index_cpp/get_package_share_directory.hpp"
 
 // One revolution is 360 * 16 increments
 // (https://doc.qt.io/qt-5/qpainter.html#drawArc)
