@@ -19,8 +19,8 @@
 #include "rclcpp/rclcpp.hpp"
 #include "rviz_common/panel.hpp"
 #include "std_msgs/msg/color_rgba.hpp"
-#include "nao_command_msgs/msg/right_eye_leds.hpp"
-#include "nao_command_msgs/msg/left_eye_leds.hpp"
+#include "nao_lola_command_msgs/msg/right_eye_leds.hpp"
+#include "nao_lola_command_msgs/msg/left_eye_leds.hpp"
 
 class EyeLedsPanel : public rviz_common::Panel
 {
@@ -39,18 +39,22 @@ private:
   void loadFaceImage();
   void paintEvent(QPaintEvent * e) override;
 
-  void drawLeftEye(QPainter & painter, const nao_command_msgs::msg::LeftEyeLeds & left_eye_leds);
-  void drawRightEye(QPainter & painter, const nao_command_msgs::msg::RightEyeLeds & right_eye_leds);
+  void drawLeftEye(
+    QPainter & painter,
+    const nao_lola_command_msgs::msg::LeftEyeLeds & left_eye_leds);
+  void drawRightEye(
+    QPainter & painter,
+    const nao_lola_command_msgs::msg::RightEyeLeds & right_eye_leds);
   void drawEyeLed(
     QPainter & painter, const QRect & rect, int led_qt_angle,
     const std_msgs::msg::ColorRGBA & color);
 
   rclcpp::Node::SharedPtr node_;
-  rclcpp::Subscription<nao_command_msgs::msg::LeftEyeLeds>::SharedPtr sub_left_;
-  rclcpp::Subscription<nao_command_msgs::msg::RightEyeLeds>::SharedPtr sub_right_;
+  rclcpp::Subscription<nao_lola_command_msgs::msg::LeftEyeLeds>::SharedPtr sub_left_;
+  rclcpp::Subscription<nao_lola_command_msgs::msg::RightEyeLeds>::SharedPtr sub_right_;
 
-  nao_command_msgs::msg::LeftEyeLeds::SharedPtr left_eye_leds;
-  nao_command_msgs::msg::RightEyeLeds::SharedPtr right_eye_leds;
+  nao_lola_command_msgs::msg::LeftEyeLeds::SharedPtr left_eye_leds;
+  nao_lola_command_msgs::msg::RightEyeLeds::SharedPtr right_eye_leds;
   QImage image;
   float imageW;
   float imageH;
