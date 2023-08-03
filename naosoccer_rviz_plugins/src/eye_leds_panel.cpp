@@ -52,16 +52,16 @@ void EyeLedsPanel::onInitialize()
   parentWidget()->setVisible(true);
 
   node_ = getDisplayContext()->getRosNodeAbstraction().lock()->get_raw_node();
-  sub_left_ = node_->create_subscription<nao_command_msgs::msg::LeftEyeLeds>(
+  sub_left_ = node_->create_subscription<nao_lola_command_msgs::msg::LeftEyeLeds>(
     "effectors/left_eye_leds", 1,
-    [this](nao_command_msgs::msg::LeftEyeLeds::SharedPtr left_eye_leds) {
+    [this](nao_lola_command_msgs::msg::LeftEyeLeds::SharedPtr left_eye_leds) {
       this->left_eye_leds = left_eye_leds;
       this->update();  // QWidget method which redraws widget
     });
 
-  sub_right_ = node_->create_subscription<nao_command_msgs::msg::RightEyeLeds>(
+  sub_right_ = node_->create_subscription<nao_lola_command_msgs::msg::RightEyeLeds>(
     "effectors/right_eye_leds", 1,
-    [this](nao_command_msgs::msg::RightEyeLeds::SharedPtr right_eye_leds) {
+    [this](nao_lola_command_msgs::msg::RightEyeLeds::SharedPtr right_eye_leds) {
       this->right_eye_leds = right_eye_leds;
       this->update();  // QWidget method which redraws widget
     });
@@ -105,7 +105,7 @@ void EyeLedsPanel::paintEvent(QPaintEvent * e)
 
 void EyeLedsPanel::drawLeftEye(
   QPainter & painter,
-  const nao_command_msgs::msg::LeftEyeLeds & left_eye_leds)
+  const nao_lola_command_msgs::msg::LeftEyeLeds & left_eye_leds)
 {
   QPoint leyeCentre(33, 5);
   QRect eye_rect(QPoint(-9, -9), QPoint(9, 9));
@@ -126,7 +126,7 @@ void EyeLedsPanel::drawLeftEye(
 
 void EyeLedsPanel::drawRightEye(
   QPainter & painter,
-  const nao_command_msgs::msg::RightEyeLeds & right_eye_leds)
+  const nao_lola_command_msgs::msg::RightEyeLeds & right_eye_leds)
 {
   QPoint reyeCentre(-33, 5);
   QRect eye_rect(QPoint(-9, -9), QPoint(9, 9));
